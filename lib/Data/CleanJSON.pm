@@ -17,16 +17,15 @@ sub _clone {
     if (eval { require Data::Clone; 1 }) {
         Data::Clone::clone(@_);
     } else {
+        require Clone::PP;
         Clone::PP::clone(@_);
     }
 }
 
-sub clean_json_in_place {
-# CODE: require Data::Clean::JSON; my $cleanser = Data::Clean::JSON->new(-obj=>['unbless_ffc_inlined']); $cleanser->{src};
-}
+# CODE: require Data::Clean::JSON; my $cleanser = Data::Clean::JSON->new(-obj=>['unbless_ffc_inlined'], '!clone_func' => '_clone'); my $src = $cleanser->{src}; $src =~ s/\A\s*sub\s*\{//s; $src =~ s/\}(\s*;)?\s*\z//; $src; "# generated with Data::Clean version $Data::Clean::VERSION, Data::Clean::JSON version $Data::Clean::JSON::VERSION\nsub clean_json_in_place { $src }\n";
 
 sub clone_and_clean_json {
-    my $data = _clone($data);
+    my $data = _clone(shift);
     clean_json_in_place($data);
 }
 
