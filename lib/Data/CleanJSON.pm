@@ -43,7 +43,7 @@ sub clone_and_clean_json {
 =head1 DESCRIPTION
 
 This has the same functionality as L<Data::Clean::JSON> except that the code to
-perform the cleaning is pre-generated, so we no longer need L<Data::Clean>>
+perform the cleaning is pre-generated, so we no longer need L<Data::Clean>
 during runtime.
 
 
